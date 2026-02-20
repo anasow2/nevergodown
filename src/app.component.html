@@ -1,0 +1,9 @@
+
+<div class="max-w-md mx-auto bg-background-light dark:bg-background-dark min-h-screen">
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  @if (showBottomNav()) {
+    <app-bottom-nav></app-bottom-nav>
+  }
+</div>

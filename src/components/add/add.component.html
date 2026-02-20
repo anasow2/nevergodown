@@ -1,0 +1,78 @@
+
+<div class="min-h-screen bg-white dark:bg-navy-custom flex flex-col">
+  <!-- Header -->
+  <header class="flex items-center p-4 border-b border-gray-200 dark:border-white/10">
+    <a routerLink="/" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+    <h1 class="text-lg font-bold text-center flex-grow -ml-10 text-navy-custom dark:text-white">Ku dar Xayeysiin</h1>
+  </header>
+
+  <main class="flex-grow p-4 space-y-6">
+    <!-- Image Upload -->
+    <div class="border-2 border-dashed border-primary/50 bg-primary/5 rounded-xl p-6 text-center">
+      <div class="flex justify-center items-center mb-2">
+        <span class="material-symbols-outlined text-primary text-5xl">photo_camera</span>
+      </div>
+      <h2 class="font-bold text-navy-custom dark:text-white">Sawir</h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Ku dar ilaa 5 sawir oo tayo leh si aad u kordhiso iibkaaga</p>
+      <button type="button" class="bg-primary text-navy-custom font-bold py-3 px-6 rounded-lg">Upload image</button>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-lg text-gray-500">edit_note</span>
+        <span class="font-bold text-navy-custom dark:text-white">Sharaxaad</span>
+      </label>
+      <textarea rows="4" class="w-full bg-gray-100 dark:bg-white/10 border-gray-200 dark:border-white/20 rounded-lg p-3 text-sm placeholder:text-gray-400 dark:text-gray-300" placeholder="Faahfaahin ka bixi waxaad iibinayso (Tusaale: Midabka, xaalada, iyo sababta aad u iibinayso)..."></textarea>
+    </div>
+
+    <!-- Price -->
+    <div class="relative">
+       <label class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-lg text-gray-500">paid</span>
+        <span class="font-bold text-navy-custom dark:text-white">Qiimo</span>
+      </label>
+      <input type="text" class="w-full bg-gray-100 dark:bg-white/10 border-gray-200 dark:border-white/20 rounded-lg p-3 text-sm placeholder:text-gray-400 dark:text-gray-300 pl-4" placeholder="Geli qiimaha...">
+      <span class="absolute right-4 top-11 text-primary font-bold">$</span>
+    </div>
+
+    <!-- Location -->
+    <div class="relative">
+      <label class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-lg text-red-500">location_on</span>
+        <span class="font-bold text-navy-custom dark:text-white">Goob</span>
+      </label>
+      <select class="w-full appearance-none bg-gray-100 dark:bg-white/10 border-gray-200 dark:border-white/20 rounded-lg p-3 text-sm text-gray-500 dark:text-gray-400">
+        <option>Dooro goobta (Magaalada)</option>
+        <option>Mogadishu</option>
+        <option>Hargeisa</option>
+        <option>Garowe</option>
+        <option>Baydhabo</option>
+      </select>
+      <span class="material-symbols-outlined absolute right-4 top-11 text-gray-400 pointer-events-none">expand_more</span>
+    </div>
+
+    <!-- Category -->
+    <div>
+      <h3 class="font-bold mb-3 text-navy-custom dark:text-white">Qaybta Xayeysiiska</h3>
+      <div class="grid grid-cols-3 gap-3">
+        <button type="button" (click)="selectCategory('home')" [class.bg-primary]="selectedCategory() === 'home'" [class.text-navy-custom]="selectedCategory() === 'home'" [class.bg-gray-100]="selectedCategory() !== 'home'" [class.dark:bg-white/10]="selectedCategory() !== 'home'" class="flex items-center justify-center p-4 rounded-lg">
+          <span class="material-symbols-outlined">home</span>
+        </button>
+        <button type="button" (click)="selectCategory('car')" [class.bg-primary]="selectedCategory() === 'car'" [class.text-navy-custom]="selectedCategory() === 'car'" [class.bg-gray-100]="selectedCategory() !== 'car'" [class.dark:bg-white/10]="selectedCategory() !== 'car'" class="flex items-center justify-center p-4 rounded-lg">
+          <span class="material-symbols-outlined">directions_car</span>
+        </button>
+        <button type="button" (click)="selectCategory('other')" [class.bg-primary]="selectedCategory() === 'other'" [class.text-navy-custom]="selectedCategory() === 'other'" [class.bg-gray-100]="selectedCategory() !== 'other'" [class.dark:bg-white/10]="selectedCategory() !== 'other'" class="flex items-center justify-center p-4 rounded-lg">
+          <span class="material-symbols-outlined">category</span>
+        </button>
+      </div>
+    </div>
+  </main>
+  
+  <footer class="p-4 border-t border-gray-200 dark:border-white/10 sticky bottom-0 bg-white dark:bg-navy-custom">
+    <p class="text-xs text-center text-gray-500 dark:text-gray-400 mb-3">Markaad riixdo 'Daabac', waxaad ogolaatay Shuruudaha iyo Adeegga SAHAL.</p>
+    <button type="button" class="w-full bg-blue-600 text-white font-bold py-4 rounded-lg">Daabac</button>
+  </footer>
+</div>

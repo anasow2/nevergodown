@@ -1,0 +1,138 @@
+
+<div class="pb-24">
+  <!-- Header -->
+  <header class="bg-navy-custom px-4 pt-4 pb-6 sticky top-0 z-30 rounded-b-xl shadow-lg text-white">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-1">
+        <span class="text-2xl font-extrabold tracking-tight">SA</span>
+        <span class="text-primary text-2xl font-extrabold tracking-tight">HAL</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button [routerLink]="['/profile']" class="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full overflow-hidden border border-white/20">
+          <span class="material-symbols-outlined">person</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="relative flex-grow">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <span class="material-symbols-outlined text-gray-400">search</span>
+        </div>
+        <input class="block w-full pl-10 pr-4 py-3 bg-white border-none rounded-xl text-navy-custom placeholder-gray-400 focus:ring-2 focus:ring-primary text-sm shadow-sm" placeholder="Maxaad raadineysaa?" type="text" />
+      </div>
+      <button (click)="openFilterPanel()" class="relative w-12 h-12 flex-shrink-0 flex items-center justify-center bg-white rounded-xl text-navy-custom shadow-sm">
+        <span class="material-symbols-outlined">filter_list</span>
+        @if (areFiltersActive()) {
+          <span class="absolute top-1.5 right-1.5 block h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-white"></span>
+        }
+      </button>
+    </div>
+  </header>
+
+  <!-- Categories -->
+  <section class="py-6 overflow-hidden">
+    <div class="flex px-4 overflow-x-auto gap-4 hide-scrollbar">
+      @for (category of categories; track category.name) {
+        <div class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+          <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary/20">
+            <span class="material-symbols-outlined text-3xl">{{ category.icon }}</span>
+          </div>
+          <span class="text-xs font-semibold text-navy-custom dark:text-gray-200">{{ category.name }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- New Ads -->
+  <section class="px-4">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-bold text-navy-custom dark:text-white">Xayeysiin cusub</h2>
+      <button type="button" class="text-primary text-sm font-semibold">Dhammaan</button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      @for (ad of filteredAds(); track ad.id; let i = $index) {
+        <div class="relative bg-white dark:bg-navy-custom/50 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10 flex flex-col">
+          <a [routerLink]="['/item', ad.id]" class="flex-grow">
+            <div class="aspect-square relative bg-gray-200 dark:bg-navy-custom/80 animate-pulse">
+              <img [ngSrc]="ad.image" [priority]="i < 2" alt="{{ ad.title }}" width="200" height="200" class="absolute inset-0 w-full h-full object-cover" />
+            </div>
+            <div class="p-3">
+              <p class="text-primary font-bold text-base">{{ ad.price | currency:'USD':'symbol':'1.0-0' }}</p>
+              <h3 class="text-sm font-medium text-navy-custom dark:text-gray-200 truncate mt-1">{{ ad.title }}</h3>
+              <div class="flex items-center gap-1 mt-2 text-gray-500 dark:text-gray-400">
+                <span class="material-symbols-outlined text-sm">location_on</span>
+                <span class="text-[10px] font-medium uppercase tracking-wider">{{ ad.location }}</span>
+              </div>
+            </div>
+          </a>
+          <button (click)="toggleFavorite(ad)" class="absolute top-2 right-2 w-8 h-8 bg-black/30 backdrop-blur-sm rounded-full text-white flex items-center justify-center z-10">
+             <span class="material-symbols-outlined text-lg" [class.text-red-500]="ad.isFavorite" [style.font-variation-settings]="ad.isFavorite ? '\'FILL\' 1' : '\'FILL\' 0'">favorite</span>
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+</div>
+
+<!-- Filter Panel -->
+@if (isFilterOpen()) {
+  <div @fade class="fixed inset-0 bg-black/60 z-40" (click)="closeFilterPanel()"></div>
+  <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-navy-custom rounded-t-2xl p-5 z-50 max-w-md mx-auto transform transition-transform duration-300 ease-in-out"
+       [class.translate-y-0]="isFilterOpen()"
+       [class.translate-y-full]="!isFilterOpen()">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold text-navy-custom dark:text-white">Filter</h3>
+      <button (click)="closeFilterPanel()" class="p-2 -mr-2">
+        <span class="material-symbols-outlined text-gray-500">close</span>
+      </button>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="mb-6">
+      <h4 class="font-bold mb-3 text-navy-custom dark:text-white">Qaybta</h4>
+      <div class="grid grid-cols-3 gap-3">
+        @for (category of categories; track category.name) {
+          <button 
+            (click)="selectCategory(category.name)"
+            [class.bg-primary]="tempSelectedCategory() === category.name" 
+            [class.text-navy-custom]="tempSelectedCategory() === category.name"
+            [class.bg-gray-100]="tempSelectedCategory() !== category.name"
+            [class.dark:bg-white/10]="tempSelectedCategory() !== category.name"
+            [class.text-navy-custom]="tempSelectedCategory() !== category.name"
+            [class.dark:text-white]="tempSelectedCategory() !== category.name"
+            class="flex flex-col items-center justify-center p-3 rounded-lg text-sm font-semibold transition-colors">
+            <span class="material-symbols-outlined mb-1">{{ category.icon }}</span>
+            <span>{{ category.name }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Price Range Filter -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-3">
+        <h4 class="font-bold text-navy-custom dark:text-white">Qiimaha</h4>
+        <span class="text-sm font-semibold text-primary">{{ tempSelectedMaxPrice() | currency:'USD':'symbol':'1.0-0' }}</span>
+      </div>
+      <input 
+        type="range" 
+        [min]="0" 
+        [max]="maxPriceValue()" 
+        [value]="tempSelectedMaxPrice()" 
+        (input)="onPriceChange($event)"
+        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-primary" />
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-3">
+      <button (click)="resetFilters()" class="flex-1 py-3 text-sm font-bold bg-gray-200 dark:bg-white/10 text-navy-custom dark:text-white rounded-lg">Reset</button>
+      <button (click)="applyFilters()" class="flex-1 py-3 text-sm font-bold bg-primary text-navy-custom rounded-lg">Apply Filters</button>
+    </div>
+  </div>
+}

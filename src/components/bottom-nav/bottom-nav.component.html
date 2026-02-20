@@ -1,0 +1,27 @@
+
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-lg border-t border-gray-200 dark:border-white/10 pb-6 pt-2 px-6 z-40 max-w-md mx-auto">
+  <div class="flex items-center justify-between">
+    <a routerLink="/" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined">home</span>
+      <span class="text-[10px] font-bold uppercase">Hoyga</span>
+    </a>
+    <a routerLink="/favorites" routerLinkActive="text-primary" class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined">favorite</span>
+      <span class="text-[10px] font-medium uppercase">Jacaylka</span>
+    </a>
+    <a routerLink="/new" class="flex flex-col items-center gap-1">
+      <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white -mt-8 shadow-lg shadow-primary/40 ring-4 ring-white dark:ring-background-dark">
+        <span class="material-symbols-outlined text-3xl">add</span>
+      </div>
+      <span class="text-[10px] font-bold text-primary uppercase mt-1">Dhig Ad</span>
+    </a>
+    <a routerLink="/chat/1" routerLinkActive="text-primary" class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined">chat_bubble</span>
+      <span class="text-[10px] font-medium uppercase">Fariimo</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="text-primary" class="flex flex-col items-center gap-1 text-gray-400">
+      <span class="material-symbols-outlined">account_circle</span>
+      <span class="text-[10px] font-medium uppercase">Profile</span>
+    </a>
+  </div>
+</nav>

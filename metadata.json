@@ -1,0 +1,5 @@
+{
+  "name": "SAHAL Marketplace",
+  "description": "A mobile-first marketplace application for buying and selling goods, inspired by modern e-commerce UI designs. Users can browse listings, view item details, post new ads, view profiles, and chat with sellers.",
+  "requestFramePermissions": []
+}
